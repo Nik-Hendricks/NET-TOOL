@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static('public'));
 
-app.get("/bundled_js",function(req, res){
+app.get("/main.js",function(req, res){
   res.header({
     'Content-Type': 'text/javascript',
     'Content-Size': getFilesizeInBytes(__dirname + '/dist/main.js')
@@ -39,7 +39,7 @@ app.get("/bundled_js",function(req, res){
   res.sendFile(__dirname + '/dist/main.js')
 })
 
-app.get("/bundled_css", (req, res) => {
+app.get("/css.js", (req, res) => {
   res.header({
     'Content-Type': 'text/javascript',
     'Content-Size': getFilesizeInBytes(__dirname + '/dist/css.js')
@@ -47,7 +47,7 @@ app.get("/bundled_css", (req, res) => {
   res.sendFile(__dirname + '/dist/css.js')
 })
 
-app.get("/NCache", (req, res) => {
+app.get("/NCache.js", (req, res) => {
   res.header({
     'Content-Type': 'text/javascript',
     'Content-Size': getFilesizeInBytes(__dirname + '/dist/NCache.js')
@@ -55,7 +55,7 @@ app.get("/NCache", (req, res) => {
   res.sendFile(__dirname + '/dist/NCache.js')
 })
 
-app.get("/NeDB", (req, res) => {
+app.get("/nedb.js", (req, res) => {
   res.header({
     'Content-Type': 'text/javascript',
     'Content-Size': getFilesizeInBytes(__dirname + '/dist/nedb.js')
@@ -107,20 +107,33 @@ app.get("/worker", (req, res) => {
     res.sendFile(`${__dirname}/web_service_worker.js`)
 })
 
-app.get("/_update_version",(req, res) => {
+app.get("/current_version",(req, res) => {
   res.sendFile(`${__dirname}/update_version`)
 })
+
+app.get('/scan_network', (req, res) => {
+  var json = {
+      'NIK-NET':{
+          ssid:'NIK-NET',
+          mac_address:'2c.4a.2a.4d.da.5d',
+          signal_strength: '-42',
+          enc_type: 'Secured'
+      }
+  }
+
+  res.send(json)
+})
+
 
 app.use('/API', API)
 
 app.get('*', (req, res) => {
   fs.readFile('update_version', 'utf8', (error, data) => {
-    res.cookie('latest_version',data)
     res.sendFile(`${__dirname}/dist/index.html`)
   });
 })
 
-httpServer.listen(81);
+httpServer.listen(80);
 
 
 

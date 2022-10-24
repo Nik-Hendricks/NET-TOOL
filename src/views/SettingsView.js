@@ -10,16 +10,16 @@ class SettingsView extends View{
         this.innerHTML =/*html*/ ` 
                                     <custom-input type="button" icon="info" text="Clear DB"></custom-input>
                                     <custom-input type="button" icon="clear" text="Clear Script Cache" onclick="NCache._clear()"></custom-input>
-                                    <custom-input type="color" width="6" text="Primary Color"></custom-input>
-                                    <custom-input type="color" width="6" text="Secondary Color"></custom-input>
+                                    <custom-input type="color" width="12" text="Primary Color"></custom-input>
+                                    <custom-input type="color" width="12" text="Secondary Color"></custom-input>
                                     <custom-input type="button" icon="light_mode" text="Light Theme"></custom-input>
                                     <custom-input type="button" icon="dark_mode" text="Dark Theme"></custom-input>
-                                    <custom-input type="slider" width="4" min="0" max="50" ></custom-input>
-                                    <custom-input type="slider" width="4" min="0" max="50" ></custom-input>
-                                    <custom-input type="slider" width="4" min="0" max="50" ></custom-input>
-                                    <card-item width="4" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Global Margin</p></card-item>
-                                    <card-item width="4" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Global Padding</p></card-item>
-                                    <card-item width="4" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Border Radius</p></card-item>
+                                    <custom-input type="slider" width="8" min="0" max="50" ></custom-input>
+                                    <custom-input type="slider" width="8" min="0" max="50" ></custom-input>
+                                    <custom-input type="slider" width="8" min="0" max="50" ></custom-input>
+                                    <card-item width="8" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Global Margin</p></card-item>
+                                    <card-item width="8" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Global Padding</p></card-item>
+                                    <card-item width="8" blank><p style="margin:0; margin-bottom:10px; width:100%; text-align:center;">Border Radius</p></card-item>
                                     <card-item><p style="width:100%; text-align:center; margin:0; margin-bottom:10px;">App Version: <b style="color:var(--theme-primary-color);">${window.localStorage.getItem('_update_version')}</b></p></card-item>`
 
         this.light_theme_button = this.getElementsByTagName('custom-input')[4];

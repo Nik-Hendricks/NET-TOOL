@@ -6,8 +6,8 @@ class ToolsView extends View{
     }
 
     connectedCallback(){
-        this.classList.add('view')
-        this.innerHTML = `scan`
+        this.classList.add('view');
+        this.innerHTML = `scan`;
         window.DP.dispatch("VIEW_LOAD");
     }
 

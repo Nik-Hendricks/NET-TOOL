@@ -3,7 +3,7 @@ var top_nav_bar = document.getElementsByTagName('menu-bar-top')[0]
 var bottom_nav_bar = document.getElementsByTagName('menu-bar-bottom')[0]
 var routes = {};
 var current_url = location.href;
-var global_el_division = 12;
+var global_el_division = 24;
 var current_view;
 var _url_offset = 2 // or 2 for prod mode;
 

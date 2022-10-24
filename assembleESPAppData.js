@@ -33,6 +33,7 @@ function get_template(){
 #define data_h
 
 const int current_version PROGMEM = 1;
+
 ${get_data_lines()}
 
 String formatBytes(size_t bytes){
@@ -76,4 +77,4 @@ function compile(data){
     return "0x" + data.replace(/\r\n|\r|\n/g," ").replace( /\s\s+/g, ' ' ).convertToHex(",0x");
 }
 
-fs.writeFileSync('ESP/data.h', get_template())
+fs.writeFileSync('ESP/NETTOOL/data.h', get_template())

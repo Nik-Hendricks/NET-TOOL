@@ -126,6 +126,15 @@ void setup() {
     request->send(response);
   });
 
+  server.on("/current_version", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", String(current_version));
+  });
+
+  server.on("/mac_vendors", HTTP_GET, [](AsyncWebServerRequest *request) {
+    AsyncWebServerResponse *response = request->beginResponse_P(200, "text/javascript", MAC_VENDORS, sizeof(MAC_VENDORS));
+    request->send(response);
+  });
+
   server.on("/scan_network", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", networks);
   });
@@ -206,10 +215,12 @@ String network_JSON(int n){
       int signal_strength = WiFi.RSSI(i); //Signal Strength
       String mac_address = WiFi.BSSIDstr(i); //mac address
       String enc_type = (WiFi.encryptionType(i) == ENC_TYPE_NONE)?" Unsecured":" Secured";
-      json += "\n{ssid:'" + ssid + "', signal_strength:" + String(signal_strength) + ", mac_address:'" + mac_address + "', enc_type:'" + enc_type+"'},";
+      json += "\n\"" + ssid + "\":{\"ssid\":\"" + ssid + "\", \"signal_strength\":" + String(signal_strength) + ", \"mac_address\":\"" + mac_address + "\", \"enc_type\":\"" + enc_type+"\"},";
       delay(10);
     }
+    json.remove(json.length() - 1);
     json += "}";
+
     return json;
 }
 

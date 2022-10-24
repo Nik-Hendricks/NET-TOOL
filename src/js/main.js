@@ -34,28 +34,25 @@ import {ScanView} from '/views/ScanView.js';
 import {ToolsView} from '/views/ToolsView.js';
 
 
-window.onload = () => {
-    window.API2.register_service_worker();
-    register_views();
-    window.API2.new_db('app_data');
+register_views();
+window.API2.new_db('app_data');
+window.API2.load();
 
-    window.DP.on("VIEW_LOAD", () => {
-        console.log("VIEW LOAD")
-        window.VM.resize_components();
-        window.loadingSpinner.hide();
-    })
+window.DP.on("VIEW_LOAD", () => {
+    console.log("VIEW LOAD")
+    window.VM.resize_components();
+    window.loadingSpinner.hide();
+})
 
-    window.DP.on('API_LOAD', () => {
-            console.log("API LOAD")
-            window.VM.begin();
-            append_bottom_buttons();
-    })
+window.DP.on('API_LOAD', () => {
+        console.log("API LOAD")
+        window.VM.begin();
+        append_bottom_buttons();
+})
 
-    window.DP.on('NO_AUTH', () => {
-    })
+window.DP.on('NO_AUTH', () => {
+})
 
-    
-}
 
 function append_bottom_buttons(){
     window.VM.add_bottom_button('settings', '/Settings');

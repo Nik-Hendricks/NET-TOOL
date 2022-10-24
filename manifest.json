@@ -1,6 +1,6 @@
 {
-    "short_name": "Financium",
-    "name": "Financium",
+    "short_name": "NET TOOL",
+    "name": "NET TOOL",
     "icons": [
       {
         "src": "/img/icons-192.png",
@@ -14,7 +14,7 @@
         "purpose":"maskable"
       }
     ],
-    "start_url": "https://147.182.241.143",
+    "start_url": "http://192.168.1.4",
     "background_color": "#232931",
     "display": "standalone",
     "scope": "/worker",

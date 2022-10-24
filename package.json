@@ -36,7 +36,7 @@
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "build": "webpack --mode=production && node -e \" var fs = require('fs'); var file_data = fs.readFileSync('./update_version', {encoding:'utf8', flag:'r'}); fs.writeFileSync('./update_version', parseInt(parseInt(file_data) + 1).toString())\" && node assembleESPAppData.js",
+    "build": "webpack --mode=production && node assembleESPAppData.js",
     "start": "node server.js"
   },
   "repository": {

@@ -28,7 +28,7 @@ class Component extends HTMLElement{
         var global_width = this.parentElement.classList.contains('sidescroller-content') ? window.VM.main_content_div.offsetWidth: this.parentElement.offsetWidth
         var global_margin = (this.hasAttribute('nomargin')) ? 0 :parseInt(getComputedStyle(document.documentElement).getPropertyValue('--global-margin').split('px')[0]);
         var unit_size = (global_width / global_division);
-        var width = (this.hasAttribute('width')) ? parseInt(this.getAttribute('width')): 12;
+        var width = (this.hasAttribute('width')) ? parseInt(this.getAttribute('width')): window.VM.global_el_division;
         var el_width = (in_row) ?  ((width  * unit_size) - global_margin) - global_margin / in_row : ((width  * unit_size) - global_margin) - global_margin / 1;
         this.style.width = `${el_width}px`
         this.style.float = 'left';
@@ -104,7 +104,7 @@ class Component extends HTMLElement{
                     next_pass.push(el);
                 }
                 if(next_pass.indexOf(el.parentElement) == -1){
-                    width_acumulator += el.hasAttribute('width') ? Number(el.getAttribute('width')) : 12;
+                    width_acumulator += el.hasAttribute('width') ? Number(el.getAttribute('width')) : window.VM.global_el_division;
                     row.push(el);
                 }
                 if(width_acumulator >= window.VM.global_el_division){

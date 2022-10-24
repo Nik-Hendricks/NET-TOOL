@@ -238,9 +238,6 @@ function loadAPI(){
     })   
 }
 
-setTimeout(() => {
-    loadAPI();
-}, 50);
 
 
 const API2 = {
@@ -262,6 +259,10 @@ const API2 = {
  
     reloadAPI(){
         reloadAPI();
+    },
+
+    load(){
+        loadAPI();
     },
 
     uniqid(prefix = "", random = false) {
@@ -311,7 +312,11 @@ const API2 = {
     
     get_networks(){
         return new Promise(resolve => {
-            resolve('test')
+            fetch('/scan_network', {type: "GET"}).then(res => {
+                res.text().then(res => {
+                    resolve(JSON.parse(res))
+                })
+            })
         })
     }
 
