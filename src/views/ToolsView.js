@@ -7,7 +7,9 @@ class ToolsView extends View{
 
     connectedCallback(){
         this.classList.add('view');
-        this.innerHTML = `scan`;
+        this.napco_tool_button = window.Builder.createElement('custom-input', {type: 'button', text:'NAPCO', icon:'info', onclick:'window.history.pushState("","","/Tools/Napco")'}, {});
+        this.serial_monitor_tool_button = window.Builder.createElement('custom-input', {type: 'button', text:'Serial Monitor', icon:'info', onclick:'window.history.pushState("","","/Tools/SerialMonitor")'}, {});
+        this.append(this.napco_tool_button, this.serial_monitor_tool_button)
         window.DP.dispatch("VIEW_LOAD");
     }
 

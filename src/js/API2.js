@@ -318,6 +318,26 @@ const API2 = {
                 })
             })
         })
+    },
+
+    send_serial(command){
+        return new Promise(resolve => {
+            fetch(`/send_serial/${command}`, {type: "GET"}).then(res => {
+                res.text().then(res => {
+                    resolve(JSON.parse(res))
+                })
+            })
+        })
+    },
+
+    read_serial(){
+        return new Promise(resolve => {
+            fetch('/read_serial', {type: "GET"}).then(res => {
+                res.text().then(res => {
+                    resolve(JSON.parse(res))
+                })
+            })
+        })
     }
 
 }

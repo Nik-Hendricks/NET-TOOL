@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 #include <ESPAsyncTCP.h>
 #include <SyncClient.h>
 #include <async_config.h>
@@ -5,7 +7,6 @@
 #include <AsyncPrinter.h>
 #include <DebugPrintMacros.h>
 #include <ESPAsyncTCPbuffer.h>
-#include <Arduino_JSON.h>
 #include <ESP8266WiFi.h>
 #include <FS.h>
 #include <ESP8266mDNS.h>
@@ -13,6 +14,7 @@
 #include <SPIFFSEditor.h>
 #include <EEPROM.h>
 #include "data.h"
+#include "time.h"
 
 #include "Settings.h"
 
@@ -38,6 +40,9 @@ extern const uint8_t data_CSS[] PROGMEM;
 extern const uint8_t data_mainJS[] PROGMEM;
 extern const uint8_t data_NCache[] PROGMEM;
 extern const uint8_t data_NEDB[] PROGMEM;
+extern const uint8_t data_icon_192[] PROGMEM;
+extern const uint8_t data_icon_512[] PROGMEM;
+extern const uint8_t data_icon_apple[] PROGMEM;
 extern const int current_version PROGMEM;
 
 extern String formatBytes(size_t bytes);
@@ -55,6 +60,10 @@ int lc = 0; //line buffer counter
 
 int available_networks;
 String networks;
+//String serial_log[50];
+StaticJsonDocument<JSON_OBJECT_SIZE(3)> doc;
+JsonObject serial_log = doc.to<JsonObject>();
+String serialized_serial_log;
 
 void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final){
   File f;
@@ -93,13 +102,6 @@ void setup() {
   settings.load();
   if(debug) settings.print();
 
-  if(settings.autoExec) {
-	  String _name = (String)settings.autostart;
-	  script = SPIFFS.open("/" + _name, "r");
-	  runScript = true;
-	  runLine = true;
-  }
-  
   WiFi.mode(WIFI_STA);
   WiFi.softAP(settings.ssid, settings.password, settings.channel, settings.hidden);
   
@@ -126,17 +128,57 @@ void setup() {
     request->send(response);
   });
 
+  server.on("/manifest.json", HTTP_GET, [](AsyncWebServerRequest *request){
+    AsyncWebServerResponse *response = request->beginResponse_P(200, "text/javascript", data_manifest, sizeof(data_manifest));
+    request->send(response);
+  });
+
+
+
+  server.on("/icons-512.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    String d = (char*) data_icon_512;
+    //AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", d, sizeof(data_icon_512));
+    request->send(200, "image/png", d);
+  });
+
+ server.on("/icons-192.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    String d = (char*) data_icon_192;
+    //AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", d, sizeof(data_icon_192));
+    request->send(200, "image/png", d);
+  });
+
+ server.on("/apple-touch-icon.png", HTTP_GET, [](AsyncWebServerRequest *request){
+    String d = (char*) data_icon_apple;
+    //AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", d, sizeof(data_icon_apple));
+    request->send(200, "image/png", d);
+  });
+
+ server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    String d = (char*) data_icon_192;
+    //AsyncWebServerResponse *response = request->beginResponse_P(200, "image/png", d, sizeof(data_icon_192));
+    request->send(200, "image/png", d);
+  });
+
+
   server.on("/current_version", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", String(current_version));
   });
 
-  server.on("/mac_vendors", HTTP_GET, [](AsyncWebServerRequest *request) {
-    AsyncWebServerResponse *response = request->beginResponse_P(200, "text/javascript", MAC_VENDORS, sizeof(MAC_VENDORS));
-    request->send(response);
-  });
-
   server.on("/scan_network", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", networks);
+  });
+
+  server.on("/send_serial", HTTP_GET, [](AsyncWebServerRequest *request) {
+
+  });
+
+  server.on("/read_serial", HTTP_GET, [](AsyncWebServerRequest *request) {
+    
+    request->send(200, "text/plain", serialized_serial_log);
+  });
+
+  server.on("/connect_to_wifi", HTTP_GET, [](AsyncWebServerRequest *request) {
+    WiFi.begin("NIK-NET", "");
   });
 
   server.on("/upload", HTTP_POST, [](AsyncWebServerRequest *request){
@@ -230,7 +272,7 @@ void scan_networks(){
   networks = network_JSON(n);
 
   // Wait a bit before starting New scanning again
-  delay(5000);
+  delay(1000);
 }
 
 void loop() {
@@ -244,6 +286,8 @@ void loop() {
 	}
 	else {
 		String command = (char)answer + Serial.readStringUntil('\n');
+    serial_log[String(millis())] = command;
+    serializeJson(serial_log, serialized_serial_log);
 		command.replace("\r", "");
 		if(command == "reset") {
 			settings.reset();
@@ -268,5 +312,4 @@ void loop() {
   }
 
   scan_networks();
-
 }

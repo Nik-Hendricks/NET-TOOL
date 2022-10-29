@@ -45,6 +45,9 @@
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/cores/esp8266/debug.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/variants/generic/pins_arduino.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/variants/generic/common.h \
+ /home/nightcrawler/Arduino/libraries/ArduinoJson/src/ArduinoJson.h \
+ /home/nightcrawler/Arduino/libraries/ArduinoJson/src/ArduinoJson.hpp \
+ /home/nightcrawler/Arduino/libraries/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  /home/nightcrawler/Arduino/libraries/ESPAsyncTCP-master/src/ESPAsyncTCP.h \
  /home/nightcrawler/Arduino/libraries/ESPAsyncTCP-master/src/async_config.h \
  /home/nightcrawler/Arduino/libraries/ESPAsyncTCP-master/src/DebugPrintMacros.h \
@@ -88,9 +91,6 @@
  /home/nightcrawler/Arduino/libraries/ESPAsyncTCP-master/src/ESPAsyncTCP.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/cores/esp8266/cbuf.h \
  /home/nightcrawler/Arduino/libraries/ESPAsyncTCP-master/src/ESPAsyncTCPbuffer.h \
- /home/nightcrawler/Arduino/libraries/Arduino_JSON/src/Arduino_JSON.h \
- /home/nightcrawler/Arduino/libraries/Arduino_JSON/src/JSON.h \
- /home/nightcrawler/Arduino/libraries/Arduino_JSON/src/JSONVar.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/libraries/ESP8266WiFi/src/ESP8266WiFi.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/cores/esp8266/wl_definitions.h \
  /home/nightcrawler/.arduino15/packages/esp8266/hardware/esp8266/3.0.1/libraries/ESP8266WiFi/src/ESP8266WiFiType.h \

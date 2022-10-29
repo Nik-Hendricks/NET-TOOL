@@ -52,7 +52,7 @@ class Component extends HTMLElement{
         }
 
         
-        if(this.offsetWidth <= 80 && this.parentElement.parentElement.getAttribute('type') !== 'dropdown'){
+        if(this.offsetWidth <= -1 && this.parentElement.parentElement.getAttribute('type') !== 'dropdown'){
             var p, span;
             if(this.getAttribute('type') == 'dropdown'){
                 p = this.button_text;

@@ -92,7 +92,7 @@ app.get('/favicon.ico', (req, res) => {
 })
 
 app.get("/manifest.json", (req, res) => {
-    res.sendFile(`${__dirname}/manifest.json`)
+    res.sendFile(`${__dirname}/dist/manifest.json`)
 })
 
 app.get("/robots.txt", (req, res) => {
@@ -122,6 +122,15 @@ app.get('/scan_network', (req, res) => {
   }
 
   res.send(json)
+})
+
+app.get('/send_serial/:command', (req, res) => {
+  console.log(req.params.command)
+  res.send(true)
+})
+
+app.get('/read_serial', (req, res) => {
+  res.send({data:'OK\n'})
 })
 
 

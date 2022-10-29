@@ -32,11 +32,14 @@ import {Text} from '/components/Text.js';
 import {SettingsView} from '/views/SettingsView.js';
 import {ScanView} from '/views/ScanView.js';
 import {ToolsView} from '/views/ToolsView.js';
+import {NapcoToolView} from '/views/NapcoToolView.js';
+import {SerialMonitorView} from '/views/SerialMonitorView.js';
+
 
 
 register_views();
 window.API2.new_db('app_data');
-window.API2.load();
+setTimeout(() => {window.API2.load();},500)
 
 window.DP.on("VIEW_LOAD", () => {
     console.log("VIEW LOAD")
@@ -83,7 +86,7 @@ function track_events(){
 }
 
 function register_views(){
-    var last_visited_view = (window.localStorage.lastView !== undefined) ? window.localStorage.lastView: `<scan-view></scan-view>`;
+    var last_visited_view = (window.localStorage.lastView !== undefined) ? window.localStorage.lastView : `<scan-view></scan-view>`;
     var routes = {
         "":{
             title: 'Net Tool',
@@ -95,7 +98,17 @@ function register_views(){
         },
         "Tools":{
             title: 'Net Tool > Tools',
-            view: `<tools-view></tools-view>`
+            view: `<tools-view></tools-view>`,
+            subViews:{
+                "Napco":{
+                    title:"Net Tool > Tools > NAPCO",
+                    view:`<napco-tool-view></napco-tool-view>`
+                },
+                "SerialMonitor":{
+                    title:"Net Tool > Tools > Serial Monitor",
+                    view:`<serial-monitor-view></serial-monitor-view>`
+                }
+            }
         },
         "Settings":{
             title: 'Net Tool > Settings',
