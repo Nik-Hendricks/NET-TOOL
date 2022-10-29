@@ -7,7 +7,7 @@ class SerialMonitorView extends View{
 
     connectedCallback(){
         this.classList.add('view');
-        var height = 'calc(calc(100% - calc(var(--global-input-height) * 2)) - calc(var(--global-margin) * 4))'
+        var height = 'calc(calc(100% - calc(var(--global-input-height) * 2)) - calc(var(--global-margin) * 3))'
         this.serial_monitor_output = window.Builder.createElement('card-item', {}, {height: height});
         this.serial_monitor_input = window.Builder.createElement('custom-input', {type: 'text', placeholder: '...', width: '20'}, {});
         this.serial_monitor_input_submit = window.Builder.createElement('custom-input', {type: 'button', icon:'info', text: 'Send', width: '4'}, {})
@@ -26,8 +26,10 @@ class SerialMonitorView extends View{
     start_listener(){
         setInterval(() => {
             this.readSerial().then(res => {
-                console.log(JSON.stringify(res));
-                this.serial_monitor_output.innerHTML = JSON.stringify(res)
+                if(res){
+                    console.log(JSON.stringify(res));
+                    this.serial_monitor_output.innerHTML = JSON.stringify(res)
+                }
             })
         }, 500);
     }

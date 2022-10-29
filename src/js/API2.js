@@ -314,7 +314,9 @@ const API2 = {
         return new Promise(resolve => {
             fetch('/scan_network', {type: "GET"}).then(res => {
                 res.text().then(res => {
-                    resolve(JSON.parse(res))
+                    if(res !== '}'){
+                        resolve(JSON.parse(res))
+                    }
                 })
             })
         })
@@ -324,7 +326,9 @@ const API2 = {
         return new Promise(resolve => {
             fetch(`/send_serial/${command}`, {type: "GET"}).then(res => {
                 res.text().then(res => {
-                    resolve(JSON.parse(res))
+                    if(res !== '}' || res !== ''){
+                        resolve(JSON.parse(res))
+                    }
                 })
             })
         })

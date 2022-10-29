@@ -7,14 +7,14 @@ class ScanView extends View{
     connectedCallback(){
         this.classList.add('view');
         this.network_items_card = window.Builder.createElement('card-item', {width:'24'}, {paddingTop:'0px'})
-        this.network_items_container = window.Builder.createElement('div',{},{})
+        this.network_items_container = window.Builder.createElement('card-item',{nomargin:true, blank:true},{marginLeft:'0px'})
         this.network_items_card.append(this.network_element('SSID', '-', 'MAC Address', 'ENC Type', 'header'), this.network_items_container);
         
         this.append(this.network_items_card);
         window.DP.dispatch("VIEW_LOAD");
         setInterval(() => {
             this.append_networks();
-            this.resizeComponents(true);
+            this.network_items_container.resizeComponents(true);
         }, 1000)
         
     }

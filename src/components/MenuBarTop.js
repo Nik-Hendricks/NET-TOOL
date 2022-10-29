@@ -25,7 +25,7 @@ class MenuBarTop extends Component{
         this.back_button = window.Builder.createElement('custom-input', {type: 'button', icon: 'arrow_back_ios', width: '4', blank: true}, {marginTop: '12.5px'})
         this.title_el = window.Builder.createElement('custom-text', {text: this.title, width: '16', align: 'center', color: 'var(--theme-text-primary-color)'}, {height: '60px', lineHeight: '60px'})
         this.search_button = window.Builder.createElement('custom-input', {type: 'button', icon: 'search', width: '4', blank: true}, {marginTop: '12.5px'})
-        this.search_textbox = window.Builder.createElement('custom-input', {type: 'text', placeholder: 'Search Anything...', width: '10', blank: true}, {marginTop: '12.5px'})
+        this.search_textbox = window.Builder.createElement('custom-input', {type: 'text', placeholder: 'Search Anything...', width: '20', blank: true}, {marginTop: '12.5px'})
         this.back_button.innerHTML = 'arrow_back_ios'
         this.search_button.innerHTML = 'search'
         this.append_state('title');
@@ -53,7 +53,8 @@ class MenuBarTop extends Component{
             }
     
             this.search_button.onclick = () => {
-                this.append_state('search')
+                this.append_state('search');
+                setTimeout(() => {this.resizeComponents(true)}, 10)
             }
         }
     }
